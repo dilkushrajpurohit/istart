@@ -1,0 +1,22 @@
+{
+  "name": "istart",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "lets",
+    "start"
+  ],
+  "author": "Dillkush kumar rajpurohit",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "mongoose": "^8.18.1",
+    "nodemailer": "^7.0.6"
+  }
+}

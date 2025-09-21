@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<style>
+     *{
+        padding: 0;
+        margin: 0;
+    }
+    .main_brain{
+        height: 50px;
+        width: 100%;
+        background-color: blue;
+    }
+    nav li{
+        margin-left: 14vw;
+        margin-top: 1vw;
+    }
+    .search{
+        height: 4vw;
+        width: 100%;
+        background-color: #0058ff16;
+    }
+    .add_college{
+        height: 15vw;
+        width: 35vw;
+        
+        position: relative;
+        left: 30%;
+        
+        top: 1vw;
+        box-shadow: 4px 4px 10px rgba(0,0,0,0.3);
+        background-color:  #0058ff16;
+    }
+    .background{
+        height: 20vw;
+        width: 100%;
+        border: 2px solid red;
+        position: relative;
+        top: 1vw;
+    }
+    .profile{
+        height: 10vw;
+        width: 10vw;
+        border: 2px solid green;
+    }
+    .feeds{
+        height: 27vw;
+        width: 29vw;
+        border: 2px solid red;
+    }
+    .block_add{
+        height: 5vw;
+
+        width: 5vw;
+        border: 2px solid red;
+        margin-top: 2vw;
+    }
+</style>
+<body>
+    <div class="main_brain">
+        <nav style="display: flex;">
+            <li></li>
+            <li>Home</li>
+            <li>Contact us</li>
+            <li>About us</li>
+        </nav>
+     </div>
+     <div class="search">
+        <input class="form-control" type="text" placeholder="Default input" aria-label="default input example" style="width: 50%;height: 60%;position: relative; left: 20%; top: 1vw;">
+     </div>
+     <div class="background">
+        <div class="profile"></div>
+     </div>
+     <div class="block_add">
+
+     </div>
+     <h2 style="margin-top: 2vw;">we have found total 18 results:-</h2>
+     <ul>
+        <li class="feeds"></li>
+     </ul>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<style>
+     *{
+        padding: 0;
+        margin: 0;
+    }
+    .main_brain{
+        height: 50px;
+        width: 100%;
+        background-color: blue;
+    }
+    nav li{
+        margin-left: 14vw;
+        margin-top: 1vw;
+    }
+    .search{
+        height: 4vw;
+        width: 100%;
+        background-color: #0058ff16;
+    }
+    .add_college{
+        height: 15vw;
+        width: 35vw;
+        
+        position: relative;
+        left: 30%;
+        
+        top: 1vw;
+        box-shadow: 4px 4px 10px rgba(0,0,0,0.3);
+        background-color:  #0058ff16;
+    }
+    input{
+        margin-top: 1vw;
+    }
+    .container{
+        height: 20vw;
+        width: 60%;
+        border: 2px solid red;
+        margin-top: 2vw;
+    }
+</style>
+<body>
+     <!-- As a heading -->
+  <!--hey the helper i created hieracy of class and id in form of human body just to make it real-->
+ <div class="main_brain">
+    <nav style="display: flex;">
+        <li></li>
+        <li>Home</li>
+        <li>Contact us</li>
+        <li>About us</li>
+    </nav>
+ </div>
+ <div class="search">
+    <input class="form-control" type="text" placeholder="Default input" aria-label="default input example" style="width: 50%;height: 60%;position: relative; left: 20%; top: 1vw;">
+ </div>
+ <div class="add_college">
+<h5>Register for college!</h5>
+<form action="/create" method="post">
+    <input type="text" placeholder="name of college" name="name">
+    <input type="text" placeholder="address of college" name="address">
+    <input type="text" placeholder="Aictc Id" name="Aictc">
+    <input type="file" name="collegephoto" id="photocollege" >
+    <input type="submit" value="submit">
+
+
+</form>
+ </div>
+ <div class="all_lists">
+    <div class="container">
+        <div class="flex" style="display: flex;">
+            <li>image</li>
+            <li><h3>Mbm college</h3></li>
+        </div>
+<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore, officiis omnis. Ut, maxime vitae ea velit voluptates quia minus quam quibusdam nulla dolor necessitatibus eum atque nisi nemo amet eius?</p>
+<p>Adress :- near the game of stats of lecture of inteteh paevof te palevopf tebhmi of teh pgeneratin</p>
+<button type="button" class="btn btn-primary">Dashboard</button>
+    </div>
+ </div>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>
