@@ -9,6 +9,17 @@ mongoose.connect('mongodb+srv://divyanshuraj43435_db_user:9FvDgGOUROCOGdoh@smart
 app.use(cookieParser());// iski wajah se baut latka mai
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({extended:false}))
+var fileupload=require("express-fileupload");
+var cloudinary=require("cloudinary").v2
+app.use(fileupload({ useTempFiles: true })); 
+
+
+cloudinary.config({ 
+    cloud_name: 'dydtaoleb', 
+    api_key: '636555295756729', 
+    api_secret: 'yxTZypNYobpGcqiu72dW5PV0sQI' 
+  });
+  
 
 app.use(express.static(__dirname+'/public'))
 app.get('/',(req,res)=>{
@@ -16,10 +27,13 @@ app.get('/',(req,res)=>{
 })
 app.get('/home/:id',async(req,res)=>{
     let id=await schema.findById(req.params.id)
-    res.render(__dirname+'/public/home.ejs')
+    let datasend= await cschema.find()
+    res.render(__dirname+'/public/home.ejs',{items:datasend})
 })
-app.get('/dashboard',(req,res)=>{
-    res.render(__dirname+"/public/dash.ejs")
+app.get('/dashboard/:id',async(req,res)=>{
+    let i=req.params.id;
+    let db=await cschema.findById(i)
+    res.render(__dirname+"/public/dash.ejs",{items:db})
 })
 
 
@@ -86,3 +100,28 @@ app.listen(3000,()=>{
 
 
 ///////////////////now saving college data
+
+app.post("/create",(req,res)=>{
+    
+
+    let file=req.files.collegephoto;
+    cloudinary.uploader.upload(file.tempFilePath, function(err,result){
+    if(err)
+     {res.send(err)}
+    else{
+
+
+    let ns=new cschema({
+        name:req.body.name,
+        address:req.body.address,
+        aictcid:req.body.Aictc,
+        link:result.url
+    })
+let sa= ns.save()
+res.redirect("/home")
+
+console.log(result.url)
+}
+
+    
+})})
