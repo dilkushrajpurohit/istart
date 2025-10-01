@@ -1,4 +1,5 @@
 const mongoose=require('mongoose')
+const { type } = require('os')
 let newschema= new mongoose.Schema({
     name:{
         type:String
@@ -11,6 +12,16 @@ let newschema= new mongoose.Schema({
     },
     link:{
         type:String
-    }
+    },
+    desc:{
+        type:String
+    },
+    product:[{
+        type:mongoose.Types.ObjectId,
+        ref:'product'
+    }]
 })
+
+
+
 module.exports=mongoose.model('college',newschema)

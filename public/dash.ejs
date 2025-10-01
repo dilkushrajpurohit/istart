@@ -39,49 +39,70 @@
     .background{
         height: 20vw;
         width: 100%;
-        border: 2px solid red;
+        background-image: linear-gradient(to bottom, red, yellow);
+        border: 2px solid grey;
         position: relative;
         top: 1vw;
     }
     .profile{
         height: 10vw;
         width: 10vw;
-        border: 2px solid green;
+        border: 5px solid grey;
     }
     .feeds{
         height: 27vw;
         width: 29vw;
-        border: 2px solid red;
+        border: 5px solid blue;
     }
     .block_add{
         height: 5vw;
 
         width: 5vw;
-        border: 2px solid red;
+        border: 5px solid grey;
         margin-top: 2vw;
+    }
+    .feeds{
+        margin-top: 10px;
+        position: relative;
+        left: 30%;
     }
 </style>
 <body>
     <div class="main_brain">
         <nav style="display: flex;">
-            <li></li>
-            <li>Home</li>
-            <li>Contact us</li>
-            <li>About us</li>
+            <li><img src="https://res.cloudinary.com/factnotes/image/upload/v1759348565/ChatGPT_Image_Oct_2_2025_01_18_31_AM_vzqofl.png" alt="logo" style="height: 8vh;width: 100%;position: relative;bottom: 35px;"></li>
+            <li> <a href="/home" style="color: black;"> Home</a></li>
+            <li> Contact us</li>
+            <a href="/aboutus"><li style="color: black;">About us</li></a>
         </nav>
      </div>
      <div class="search">
         <input class="form-control" type="text" placeholder="Default input" aria-label="default input example" style="width: 50%;height: 60%;position: relative; left: 20%; top: 1vw;">
      </div>
-     <div class="background">
-        <div class="profile"><img src="<%=items.link%>" alt=""></div>
+     <div class="background" >
+        <div class="profile" style="display: flex;"><img src="<%=items.link%>" alt="" style="height: 25vh;width: 100%;">
+        
+     <div class="data" style="position: relative; left: 5vw; top: 10vh;">   <h3><%=items.name%></h3>
+        <h4><%=items.address%></h4></div>
+        </div>
      </div>
-     <div class="block_add">
-        <button type="button" class="btn btn-danger">Add item</button>
+     <div class="block_add" style="width: 50%;position: relative;left: 25%;">
+      <a href = "/additems/<%=items._id%>" >  <button type="button" style="width: 100%; height: 100%;background-color: blue;position: relative;" >Add item</button></a>
      </div>
-     <h2 style="margin-top: 2vw;">we have found total 18 results:-</h2>
+     <h2 style="margin-top: 2vw;">we have found total <%=prod.length%> results:-</h2>
      <ul>
-        <li class="feeds"></li>
+        <% prod.forEach(pro => {%>
+        <li class="feeds">
+<div class="topname" style="height: 5vh; width: 100%;border: 2px solid grey;">seller :-<%=pro.name%></div>
+<div class="image" style="height: 52vh;width: 100%;border: 2px solid black;"><img src="<%=pro.photo%>" alt="photo" style="height: 52vh;width: 100%;"></div>
+<div class="bottom" style="display: flex;">
+    <div class="rate" style="width: 50%;height: 8vh;border: 3px solid grey;">price:-<%=pro.price%></div>
+    <div class="buynow" style="width: 50%;height: 8vh; border: 3px solid grey;"><a href = "/contact/<%=pro._id%>" >  <button type="button" class="btn btn-danger">buy now</button></a></div>
+</div>
+
+
+        </li>
+        <% }) %>
      </ul>
 </body>
 </html>

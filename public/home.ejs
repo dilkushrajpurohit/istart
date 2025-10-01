@@ -42,8 +42,12 @@
     .container{
         height: 20vw;
         width: 60%;
-        border: 2px solid red;
+        border: 2px solid grey;
+        border-radius: 5px;
         margin-top: 2vw;
+    }
+    .container li{
+        list-style: none;
     }
 </style>
 <body>
@@ -51,10 +55,10 @@
   <!--hey the helper i created hieracy of class and id in form of human body just to make it real-->
  <div class="main_brain">
     <nav style="display: flex;">
-        <li></li>
-        <li>Home</li>
-        <li>Contact us</li>
-        <li>About us</li>
+        <li><img src="https://res.cloudinary.com/factnotes/image/upload/v1759348565/ChatGPT_Image_Oct_2_2025_01_18_31_AM_vzqofl.png" alt="logo" style="height: 8vh;width: 100%;position: relative;bottom: 35px;"></li>
+        <li> <a href="/home" style="color: black;"> Home</a></li>
+        <li> Contact us</li>
+        <a href="/aboutus"><li style="color: black;">About us</li></a>
     </nav>
  </div>
  <div class="search">
@@ -65,6 +69,7 @@
 <form action="/create" method="post" enctype="multipart/form-data">
     <input type="text" placeholder="name of college" name="name">
     <input type="text" placeholder="address of college" name="address">
+    <input type="text" placeholder="about the college"name="about">
     <input type="text" placeholder="Aictc Id" name="Aictc">
     <input type="file" name="collegephoto" id="photocollege" >
     <input type="submit" value="submit">
@@ -76,11 +81,11 @@
     <% items.forEach(item => {%>
     <div class="container">
         <div class="flex" style="display: flex;">
-            <li><img src="<%= item.link %>" alt="image"></li>
+            <li><img src="<%= item.link %>" alt="image" style="height: 20vh; width: 61%;"></li>
             <li><h3><%= item.name %></h3></li>
         </div>
-<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Inventore, officiis omnis. Ut, maxime vitae ea velit voluptates quia minus quam quibusdam nulla dolor necessitatibus eum atque nisi nemo amet eius?</p>
-<p>Adress :- near the game of stats of lecture of inteteh paevof te palevopf tebhmi of teh pgeneratin</p>
+<p><%=item.desc%></p>
+<p>Adress :- <%=item.address%></p>
 <a href="/dashboard/<%=item.id%>"><button type="button" class="btn btn-primary">Dashboard</button></a>
     </div>
     <% }) %>
