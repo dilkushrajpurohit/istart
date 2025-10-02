@@ -63,7 +63,7 @@ res.cookie('name',req.body.name)
 res.cookie('password',req.body.password)
 res.cookie('email',req.body.email)
 const mailoption =nodemailer.createTransport({
-    host: "smtp.gmail.com",
+    host: "smtp.sendgrid.net",
     port: 587,
     secure: false,
 
