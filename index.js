@@ -63,9 +63,7 @@ res.cookie('name',req.body.name)
 res.cookie('password',req.body.password)
 res.cookie('email',req.body.email)
 const mailoption =nodemailer.createTransport({
-    host: "smtp",
-    port: 587,
-    secure: false, 
+    service:'gmail',
     auth:{
         user:"cartoonfans963@gmail.com",
         pass: "nbpgtweumfjgwijj"
