@@ -203,7 +203,7 @@ app.post('/addit',async(req,res)=>{
         { $push: { product:sv._id } },   // push productId to array
         { new: true }                         // return updated doc
       );
-      res.redirect(`/dashboard/${res.cookie.cid}`)
+      res.redirect(`/dashboard/${req.cookies.cid}`)
     }
 })
     }
