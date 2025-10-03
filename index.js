@@ -46,11 +46,16 @@ app.get('/dashboard/:id',async(req,res)=>{
         for (let index = 0; index < array.length; index++) {
             let cid=array[index]
             let pr=await products.findById(cid)
-            let final =disc.push(pr)
+           if(pr){
+            let final =disc.push(pr)}
+
 
             
         }
-        res.render(__dirname+"/public/dash.ejs",{items:db,prod:disc})}
+       res.render(__dirname+"/public/dash.ejs",{items:db,prod:disc})
+     // res.send(disc)
+    }
+     
         
     }
 )
