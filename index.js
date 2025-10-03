@@ -6,6 +6,7 @@ const mongoose=require('mongoose')
 const schema=require("./schema.js")
 const cschema=require('./cschema.js')
 const products=require('./products.js')
+let {Resend}=require('resend')
 
 mongoose.connect('mongodb+srv://divyanshuraj43435_db_user:9FvDgGOUROCOGdoh@smartindia.6uydl5q.mongodb.net/?retryWrites=true&w=majority&appName=smartindia').then(()=>{console.log('connected to db')})
 app.use(cookieParser());// iski wajah se baut latka mai
@@ -67,7 +68,7 @@ res.cookie('otpcookie',random)
 res.cookie('name',req.body.name)
 res.cookie('password',req.body.password)
 res.cookie('email',req.body.email)
-const mailoption =nodemailer.createTransport({
+/*const mailoption =nodemailer.createTransport({
     host: "smtp.gmail.com",       // your SMTP server
     port: 587,                    // TLS port
     secure: false, 
@@ -89,7 +90,18 @@ mailoption.sendMail(maildata,function(error,info){
     else{
         res.render(__dirname+"/public/otp.ejs")
     }
-})
+})*/
+
+const resend = new Resend('re_MjXW1UZa_BiiBXYiWgGe6rGwgrDGtpDdA');
+
+resend.emails.send({
+  from: 'onboarding@resend.dev',
+  to: req.body.email,
+  subject: 'verify your identity',
+  html: `<h1> hey your otp for vidya sahay</h1> <br> ${random} `
+});
+res.render(__dirname+"/public/otp.ejs")
+
 
 
 })
@@ -224,7 +236,7 @@ app.get("/contact/:id",async(req,res)=>{
     if(req.cookies.id==undefined){res.redirect('/')}
     else{
     let r =await products.findById(req.params.id)
-    const mailoption =nodemailer.createTransport({
+    /*const mailoption =nodemailer.createTransport({
         service:'gmail',
         auth:{
             user:"cartoonfans963@gmail.com",
@@ -249,6 +261,23 @@ app.get("/contact/:id",async(req,res)=>{
         else{
             res.send('hey your request has been send to seller he will inform you through email so be alert and keep checking ')
         }
-    })
+    })*/
+
+
+
+    const resend = new Resend('re_MjXW1UZa_BiiBXYiWgGe6rGwgrDGtpDdA');
+
+resend.emails.send({
+  from: 'onboarding@resend.dev',
+  to: r.email,
+  subject: '"hey you got an order"',
+  html:`<h4> name of product :- ${r.name}<br>  
+  name of person :- ${req.cookies.name}<br>
+  email of person :- ${req.cookies.email}<br>
+  price of product:- ${r.price} <br> contact the person through email and keep visiting </h4>`
+  
+});
+
+res.send('your request has been send to seller he will inform you through email so be alerat and keep checking ')
 }
 })
