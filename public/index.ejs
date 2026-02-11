@@ -3,68 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | register</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <title>sCommerce</title>
+    
 </head>
 <style>
-    *{
-        padding: 0;
-        margin: 0;
-    }
-    .main_brain{
-        height: 50px;
-        width: 100%;
-        background-color: blue;
-    }
-    body{
-        height: 100%;
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    min-height: 100vh;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background: white;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #764ba2;
+}
+
+.nav-buttons button {
+    margin-left: 10px;
+    padding: 8px 18px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.nav-buttons button:hover {
+    opacity: 0.9;
+}
+
+.signup-btn {
+    background: #764ba2;
+    color: white;
+}
+
+/* Form Section */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px;
+}
+
+.form-box {
+    background: white;
+    padding: 30px;
+    width: 350px;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.form-box h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-box input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.form-box button {
+    width: 100%;
+    padding: 10px;
+    background: #764ba2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.form-box p {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.form-box span {
+    color: #764ba2;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .navbar {
+        flex-direction: column;
+        gap: 10px;
     }
 
-    .form{
-        height: 25vw; /* use vw when want to change accordingly*/
-    width: 55vw;
-    border: 2px solid grey;
-    position: relative;
-    left: 20vw;
+    .container {
+        margin-top: 40px;
     }
-  form input{
-    margin-top: 2vw;
-  }
+
+    .form-box {
+        width: 90%;
+    }
+}
+
 </style>
 <body>
-  <!-- As a heading -->
-  <!--hey the helper i created hieracy of class and id in form of human body just to make it real-->
- <div class="main_brain">
-    <nav></nav>
- </div>
- <div class="heading"><h1 style="text-align: center;">Welcome to Vidhya sahay</h1>
-<h4 style="text-align: center;">Vidhya sahay is a online kart for college to get second things at as lowest cost as possible.</h4>
-</div>
-<div class="form">
-    <h3 style="text-align: center;">Register now!</h3>
-    <form action="/register" class="login_form" method="post">
-        <input class="form-control form-control-lg" type="text" placeholder="Enter your name" aria-label=".form-control-lg example" style="width: 85%;" name="name">
-        <input class="form-control form-control-lg" type="email" placeholder="Enter your email" aria-label=".form-control-lg example" style="width: 85%;" name="email">
-    
-<input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock" placeholder="enter password" style="width: 30%;" name="password">
-<button type="submit" class="btn btn-primary" style="margin-top: 2vw;">Register now</button>
-    </form>
 
-</div>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">sCommerce</div>
+        <div class="nav-buttons">
+            <button onclick="showLogin()">Login</button>
+            <button onclick="showSignup()" class="signup-btn">Sign Up</button>
+        </div>
+    </nav>
 
-<!-- hey it is something new-->
+    <!-- Form Container -->
+    <div class="container">
+        <!-- Login Form -->
+        <div class="form-box" id="loginForm">
+            <form action="/login" method="post">
+            <h2>Login</h2>
+            <input type="email" placeholder="Email" required>
+            <input type="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+            </form>
+            <p>Don't have an account? 
+                <span onclick="showSignup()">Sign Up</span>
+            </p>
+        </div>
 
-<div class="form" style="position: relative; top: 10vh;">
-    <h3 style="text-align: center;">Login now!</h3>
-    <form action="/login" class="login_form" method="post">
+        <!-- Signup Form -->
+        <div class="form-box hidden" id="signupForm">
+            <form action="/register" method="post">
+            <h2>Sign Up</h2>
+            <input type="text" placeholder="Name" required name="name">
+            <input type="email" placeholder="Email" required name="email">
+            <input type="password" placeholder="Password" required name="password">
+            <button type="submit">Sign Up</button>
+            </form>
+            <p>Already have an account? 
+                <span onclick="showLogin()">Login</span>
+            </p>
+        </div>
+    </div>
 
-        <input class="form-control form-control-lg" type="email" placeholder="Enter your email" aria-label=".form-control-lg example" style="width: 85%;" name="email">
-    
-<input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock" placeholder="enter password" style="width: 30%;" name="password">
-<button type="submit" class="btn btn-primary" style="margin-top: 2vw;">Login now</button>
-    </form>
+    <script>
+        function showLogin() {
+    document.getElementById("loginForm").classList.remove("hidden");
+    document.getElementById("signupForm").classList.add("hidden");
+}
 
-</div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+function showSignup() {
+    document.getElementById("signupForm").classList.remove("hidden");
+    document.getElementById("loginForm").classList.add("hidden");
+}
+
+    </script>
 </body>
 </html>

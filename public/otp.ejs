@@ -5,12 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>otp verify</title>
 </head>
-<body>
-    <h1>otp verify</h1>
+<style>
+    form{
+        height: 30vh;
+        width: 70vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 5px solid white;
+        position: relative;
+     
+    }
+</style>
+<body style="background-color: #000;">
+    <h1 style="color: wheat;text-align: center;">Otp verify</h1>
+    <div style="display: flex;justify-content: center;align-items: center;">
     <form action="/otpverify" method="post">
         <input type="text" name="otp" placeholder="enter otp">
         <input type="submit">
 
     </form>
+    </div>
 </body>
 </html>

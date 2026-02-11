@@ -1,108 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-</head>
-<style>
-     *{
-        padding: 0;
-        margin: 0;
-    }
-    .main_brain{
-        height: 50px;
-        width: 100%;
-        background-color: blue;
-    }
-    nav li{
-        margin-left: 14vw;
-        margin-top: 1vw;
-    }
-    .search{
-        height: 4vw;
-        width: 100%;
-        background-color: #0058ff16;
-    }
-    .add_college{
-        height: 15vw;
-        width: 35vw;
-        
-        position: relative;
-        left: 30%;
-        
-        top: 1vw;
-        box-shadow: 4px 4px 10px rgba(0,0,0,0.3);
-        background-color:  #0058ff16;
-    }
-    .background{
-        height: 20vw;
-        width: 100%;
-        background-image: linear-gradient(to bottom, red, yellow);
-        border: 2px solid grey;
-        position: relative;
-        top: 1vw;
-    }
-    .profile{
-        height: 10vw;
-        width: 10vw;
-        border: 5px solid grey;
-    }
-    .feeds{
-        height: 27vw;
-        width: 29vw;
-        border: 5px solid blue;
-    }
-    .block_add{
-        height: 5vw;
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        width: 5vw;
-        border: 5px solid grey;
-        margin-top: 2vw;
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background: #f4f6f9;
     }
-    .feeds{
-        margin-top: 10px;
-        position: relative;
-        left: 30%;
+
+    .profile-banner {
+      background: linear-gradient(135deg, #ff9800, #ff5722);
+      color: white;
+      padding: 30px 15px;
+      border-radius: 0 0 25px 25px;
+      text-align: center;
     }
-</style>
+
+    .profile-banner img {
+      height: 110px;
+      width: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #fff;
+    }
+
+    .action-btn {
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .card-img-top {
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .section-title {
+      margin: 35px 0 15px;
+      font-weight: 600;
+    }
+
+    @media (max-width: 576px) {
+      .card-img-top {
+        height: 170px;
+      }
+    }
+  </style>
+</head>
+
 <body>
-    <div class="main_brain">
-        <nav style="display: flex;">
-            <li><img src="https://res.cloudinary.com/factnotes/image/upload/v1759348565/ChatGPT_Image_Oct_2_2025_01_18_31_AM_vzqofl.png" alt="logo" style="height: 8vh;width: 100%;position: relative;bottom: 35px;"></li>
-            <li> <a href="/home" style="color: black;"> Home</a></li>
-            <li> Contact us</li>
-            <a href="/aboutus"><li style="color: black;">About us</li></a>
-        </nav>
-     </div>
-     <div class="search">
-        <input class="form-control" type="text" placeholder="Default input" aria-label="default input example" style="width: 50%;height: 60%;position: relative; left: 20%; top: 1vw;">
-     </div>
-     <div class="background" >
-        <div class="profile" style="display: flex;"><img src="<%=items.link%>" alt="" style="height: 25vh;width: 100%;">
-        
-     <div class="data" style="position: relative; left: 5vw; top: 10vh;">   <h3><%=items.name%></h3>
-        <h4><%=items.address%></h4></div>
-        </div>
-     </div>
-     <div class="block_add" style="width: 50%;position: relative;left: 25%;">
-      <a href = "/additems/<%=items._id%>" >  <button type="button" style="width: 100%; height: 100%;background-color: blue;position: relative;" >Add item</button></a>
-     </div>
-     <h2 style="margin-top: 2vw;">we have found total <%=prod.length%> results:-</h2>
-     <ul>
-        <% prod.forEach(pro => { %>
-        <li class="feeds">
-<div class="topname" style="height: 5vh; width: 100%;border: 2px solid grey;">product name :-<%=pro.name%></div> 
-<div class="image" style="height: 52vh;width: 100%;border: 2px solid black;"><img src="<%=pro.photo%>" alt="photo" style="height: 52vh;width: 100%;"></div>
-<div class="bottom" style="display: flex;">
-    <div class="rate" style="width: 50%;height: 8vh;border: 3px solid grey;">price:-<%=pro.price%></div>
-    <div class="buynow" style="width: 50%;height: 8vh; border: 3px solid grey;"><a href = "/contact/<%=pro._id%>" >  <button type="button" class="btn btn-danger">buy now</button></a></div>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-dark bg-dark">
+  <div class="container-fluid">
+    <span class="navbar-brand fw-bold">Dashboard</span>
+  </div>
+</nav>
+
+<!-- PROFILE -->
+<div class="profile-banner">
+  <img src="<%= items.link %>" alt="profile">
+  <h3 class="mt-3"><%= items.name %></h3>
+  <p class="mb-0"><%= items.address %></p>
 </div>
 
+<!-- ACTION BUTTONS -->
+<div class="container mt-4">
+  <div class="row g-2">
+    <div class="col-12 col-md-6">
+      <a href="/additems/<%=items._id%>">
+        <button class="btn btn-primary action-btn">➕ Add Item</button>
+      </a>
+    </div>
+    <div class="col-12 col-md-6">
+      <a href="/writter/<%=items._id%>">
+        <button class="btn btn-success action-btn">✍️ Register Writer</button>
+      </a>
+    </div>
+  </div>
 
-        </li>
-        <% }) %>
-     </ul>
+  <!-- PRODUCTS -->
+  <h4 class="section-title">
+    Products (<%= prod.length %>)
+  </h4>
+
+  <div class="row g-3">
+    <% prod.forEach(pro => { %>
+      <% if (pro) { %>
+      <div class="col-12 col-sm-6 col-md-4">
+        <div class="card h-100 shadow-sm">
+          <img src="<%= pro.photo %>" class="card-img-top">
+          <div class="card-body">
+            <h5 class="card-title"><%= pro.name %></h5>
+            <small class="text-muted">By <%= pro.nam %></small>
+            <p class="mt-2"><%= pro.Desc %></p>
+          </div>
+          <div class="card-footer d-flex justify-content-between align-items-center">
+            <strong>₹ <%= pro.price %></strong>
+            <a href="/contact/<%= pro._id %>" class="btn btn-danger btn-sm">
+              Buy
+            </a>
+          </div>
+        </div>
+      </div>
+      <% } %>
+    <% }) %>
+  </div>
+
+  <!-- WRITERS -->
+  <h4 class="section-title">Writers</h4>
+  <div class="row g-3">
+    <% wri.forEach(wr => { %>
+      <% if (wr) { %>
+      <div class="col-12 col-sm-6 col-md-4">
+        <div class="card h-100 shadow-sm">
+          <img src="<%= wr.link %>" class="card-img-top">
+          <div class="card-body">
+            <h5 class="card-title"><%= wr.name %></h5>
+            <p><%= wr.desc %></p>
+            <p><b>Pages:<%=wr.Pages%>   </b></p>
+            <p><b>Price:-<%=wr.Price%>  </b></p>
+          </div>
+          <div class="card-footer text-center">
+            <a href="/writter/<%= wr._id %>" class="btn btn-outline-primary btn-sm">
+              Hire Now
+            </a>
+          </div>
+        </div>
+      </div>
+      <% } %>
+    <% }) %>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

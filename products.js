@@ -3,6 +3,9 @@ let products=new mongoose.Schema({
     name:{
         type:String
     },
+    mobile:{
+        type:Number
+    },
     photo:{
         type:String
     },

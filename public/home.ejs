@@ -5,67 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
 </head>
 <style>
      *{
         padding: 0;
         margin: 0;
     }
-    .main_brain{
-        height: 50px;
-        width: 100%;
-        background-color: blue;
-    }
-    nav li{
-        margin-left: 14vw;
-        margin-top: 1vw;
-    }
-    .search{
-        height: 4vw;
-        width: 100%;
-        background-color: #0058ff16;
-    }
-    .add_college{
-        height: 15vw;
-        width: 35vw;
-        
-        position: relative;
-        left: 30%;
-        
-        top: 1vw;
-        box-shadow: 4px 4px 10px rgba(0,0,0,0.3);
-        background-color:  #0058ff16;
-    }
-    input{
-        margin-top: 1vw;
-    }
-    .container{
-        height: 20vw;
-        width: 60%;
-        border: 2px solid grey;
-        border-radius: 5px;
-        margin-top: 2vw;
-    }
-    .container li{
-        list-style: none;
-    }
+  .search{
+    width: 100%;
+    height: 17vh;
+    background-color: green;
+  }
+  .all_lists{
+    border: 2px solid grey;
+    margin-top: 5vh;
+  }
+ 
 </style>
-<body>
+<body >
      <!-- As a heading -->
   <!--hey the helper i created hieracy of class and id in form of human body just to make it real-->
- <div class="main_brain">
-    <nav style="display: flex;">
-        <li><img src="https://res.cloudinary.com/factnotes/image/upload/v1759348565/ChatGPT_Image_Oct_2_2025_01_18_31_AM_vzqofl.png" alt="logo" style="height: 8vh;width: 100%;position: relative;bottom: 35px;"></li>
-        <li> <a href="/home" style="color: black;"> Home</a></li>
-        <li> Contact us</li>
-        <a href="/aboutus"><li style="color: black;">About us</li></a>
-    </nav>
- </div>
+
+
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Features</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Pricing</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" aria-disabled="true"><img src="user-svgrepo-com.svg" alt="icon"></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
  <div class="search">
-    <input class="form-control" type="text" placeholder="Default input" aria-label="default input example" style="width: 50%;height: 60%;position: relative; left: 20%; top: 1vw;">
+    <input class="form-control" type="text" placeholder="Search collge here" aria-label="default input example" style="width: 50%;height: 60%;position: relative; left: 20%; top: 1vw;">
  </div>
- <div class="add_college">
-<h5>Register for college!</h5>
+ <div class="container-fluid" style="background-color: wheat;margin-top: 6vh;">
+<h5 style="color: white;">Register for college!</h5>
 <form action="/create" method="post" enctype="multipart/form-data">
     <input type="text" placeholder="name of college" name="name">
     <input type="text" placeholder="address of college" name="address">
@@ -77,7 +68,7 @@
 
 </form>
  </div>
- <div class="all_lists">
+ <div class="all_lists container-fluid">
     <% items.forEach(item => {%>
     <div class="container">
         <div class="flex" style="display: flex;">

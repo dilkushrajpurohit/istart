@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sCommerce | Marketplace</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: #f5f7fb;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background: #4b0082;
+    color: white;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.nav-btn {
+    padding: 8px 18px;
+    background: white;
+    color: #4b0082;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* College Section */
+.college-section {
+    width: 85%;
+    margin: 30px auto;
+    background: white;
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.college-section img {
+    width: 220px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.college-info h2 {
+    color: #4b0082;
+    margin-bottom: 8px;
+}
+
+.college-info p {
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+/* Add Item Section */
+.add-item-section {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+}
+
+.add-item-btn {
+    padding: 14px 30px;
+    font-size: 16px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* Products Section */
+.products-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    padding-bottom: 50px;
+}
+
+/* Product Card */
+.product-card {
+    width: 80%;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+/* Card Header */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 20px;
+    background: #f0ecff;
+}
+
+.card-header h3 {
+    color: #4b0082;
+}
+
+.card-header span {
+    font-size: 14px;
+}
+
+/* Card Image */
+.card-image img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+}
+
+/* Card Details */
+.card-details {
+    padding: 15px 20px;
+}
+
+.price {
+    font-size: 20px;
+    font-weight: bold;
+    color: #4b0082;
+}
+
+/* Card Action */
+.card-action {
+    padding: 15px 20px;
+    text-align: right;
+}
+
+.card-action button {
+    padding: 10px 22px;
+    background: #4b0082;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .college-section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .college-section img {
+        width: 100%;
+        height: 200px;
+    }
+
+    .product-card {
+        width: 92%;
+    }
+
+    .card-header {
+        flex-direction: column;
+        gap: 5px;
+    }
+}
+
+</style>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">sCommerce</div>
+        <button class="nav-btn">Login</button>
+    </nav>
+
+    <!-- College Info Section -->
+    <section class="college-section">
+        <img src="https://images.unsplash.com/photo-1588072432836-e10032774350" alt="College">
+        <div class="college-info">
+            <h2>IIT Jodhpur</h2>
+            <p><strong>Address:</strong> Karwar, Rajasthan</p>
+            <p>
+                Indian Institute of Technology Jodhpur is one of India’s
+                premier engineering institutes offering world-class education
+                and research facilities.
+            </p>
+        </div>
+    </section>
+
+    <!-- Add Item Section -->
+    <section class="add-item-section">
+        <button class="add-item-btn">+ Add Items</button>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section">
+
+        <!-- Product Card 1 -->
+        <div class="product-card">
+            <div class="card-header">
+                <h3>Wireless Headphones</h3>
+                <span>Seller: TechWorld</span>
+            </div>
+
+            <div class="card-image">
+                <img src="https://images.unsplash.com/photo-1585386959984-a4155228f7ee" alt="Product">
+            </div>
+
+            <div class="card-details">
+                <p class="price">₹2,499</p>
+                <p>High-quality wireless headphones with noise cancellation.</p>
+            </div>
+
+            <div class="card-action">
+                <button>Buy Now</button>
+            </div>
+        </div>
+
+        <!-- Product Card 2 -->
+        <div class="product-card">
+            <div class="card-header">
+                <h3>Smart Watch</h3>
+                <span>Seller: GadgetHub</span>
+            </div>
+
+            <div class="card-image">
+                <img src="https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b" alt="Product">
+            </div>
+
+            <div class="card-details">
+                <p class="price">₹3,999</p>
+                <p>Fitness tracking smartwatch with heart-rate monitoring.</p>
+            </div>
+
+            <div class="card-action">
+                <button>Buy Now</button>
+            </div>
+        </div>
+
+    </section>
+
+</body>
+</html>

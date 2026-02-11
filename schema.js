@@ -15,7 +15,15 @@ const schema= new mongoose.Schema({
     },
     rating:{
         type:Number
-    }
+    },
+    bought:[{
+        type:mongoose.Types.ObjectId,
+        ref:'product'
+    }],
+    sold:[{
+        type:mongoose.Types.ObjectId,
+        ref:'product'
+    }]
 
 })
 module.exports=mongoose.model('Schema',schema)

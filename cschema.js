@@ -19,6 +19,10 @@ let newschema= new mongoose.Schema({
     product:[{
         type:mongoose.Types.ObjectId,
         ref:'product'
+    }],
+       writter:[{
+        type:mongoose.Types.ObjectId,
+        ref:'writter'
     }]
 })
 
