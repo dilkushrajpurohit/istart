@@ -7,7 +7,7 @@ const schema=require("./schema.js")
 const cschema=require('./cschema.js')
 const products=require('./products.js')
 
-const otpStore = {}   // 
+const otpStore = {}   
 let {Resend}=require('resend')
 const writter=require("./writter.js")
 mongoose.connect('mongodb+srv://divyanshuraj43435_db_user:9FvDgGOUROCOGdoh@smartindia.6uydl5q.mongodb.net/?retryWrites=true&w=majority&appName=smartindia').then(()=>{console.log('connected to db')})
@@ -17,9 +17,6 @@ app.use(express.urlencoded({extended:false}))
 var fileupload=require("express-fileupload");
 var cloudinary=require("cloudinary").v2
 app.use(fileupload({ useTempFiles: true })); 
-
-
-
 
 
 cloudinary.config({ 
@@ -211,12 +208,74 @@ app.get('/profile',async(req,res)=>{
     })
 })
 
+// Route to update profile information
+app.post('/updateprofile', async(req,res)=>{
+    if(req.cookies.id==undefined){res.redirect('/')}
+    try{
+        const id = req.cookies.id
+        const updatedData = {
+            name: req.body.name,
+            college: req.body.college,
+            city: req.body.city,
+            mobile: req.body.mobile,
+            bio: req.body.bio
+        }
+        await schema.findByIdAndUpdate(id, updatedData, {new: true})
+        res.redirect('/profile')
+    }catch(e){
+        console.log(e)
+        res.send('Error updating profile')
+    }
+})
+
+// Route to delete item from sold list
+app.post('/deletesolid/:productId', async(req,res)=>{
+    if(req.cookies.id==undefined){res.redirect('/')}
+    try{
+        const userId = req.cookies.id
+        const productId = req.params.productId
+        
+        // Remove product from user's sold array
+        await schema.findByIdAndUpdate(
+            userId,
+            { $pull: { sold: productId } },
+            { new: true }
+        )
+        
+        res.redirect('/profile')
+    }catch(e){
+        console.log(e)
+        res.send('Error deleting item')
+    }
+})
+
+// Route to delete item from bought list
+app.post('/deletebought/:productId', async(req,res)=>{
+    if(req.cookies.id==undefined){res.redirect('/')}
+    try{
+        const userId = req.cookies.id
+        const productId = req.params.productId
+        
+        // Remove product from user's bought array
+        await schema.findByIdAndUpdate(
+            userId,
+            { $pull: { bought: productId } },
+            { new: true }
+        )
+        
+        res.redirect('/profile')
+    }catch(e){
+        console.log(e)
+        res.send('Error deleting item')
+    }
+})
+
+// Route to add item to bought list (already exists above as /contact/:id)
+// Route to add item to sold list (already exists above as /addit)
+
 
 app.get("/landing",(req,res)=>{
     res.render(__dirname+"/public/landingpage.ejs")
-})
-app.listen(process.env.PORT||3000,()=>{
-    console.log("hey it is working new change")
 })
 
 
@@ -303,59 +362,99 @@ app.post('/addit',async(req,res)=>{
 app.get("/Aboutus",(req,res)=>{
     res.render(__dirname+"/public/contactus.ejs")
 })
+// Get product details for buy confirmation
+app.get("/buynow/:id",async(req,res)=>{
+    if(req.cookies.id==undefined){res.redirect('/')}
+    else{
+    try{
+        let product = await products.findById(req.params.id)
+        let seller = await schema.findOne({email:product.email})
+        res.render(__dirname+"/public/buynow.ejs",{
+            product:product,
+            seller:seller,
+            buyer:req.cookies.name,
+            buyerEmail:req.cookies.email
+        })
+    }catch(e){
+        console.log(e)
+        res.send('Error loading product details')
+    }
+    }
+})
+
+// Confirm purchase and add to buyer's bought list
+app.post("/confirmbuy/:id",async(req,res)=>{
+    if(req.cookies.id==undefined){res.redirect('/')}
+    else{
+    try{
+        let productId = req.params.id
+        let product = await products.findById(productId)
+        
+        // Get current user
+        let buyerData = await schema.find({email:req.cookies.email})
+        let buyerId = buyerData[0]._id
+        
+        // Add product to buyer's bought list
+        await schema.findByIdAndUpdate(buyerId,
+            {
+            $push:{bought:productId}
+            },
+            {new:true}
+        )
+        
+        // Prepare WhatsApp message
+        let msg = `
+Hello, I want to buy your product.
+Product: ${product.name}
+Price: ₹${product.price}
+Buyer: ${req.cookies.name}
+Email: ${req.cookies.email}
+Mobile: ${req.body.mobile || 'Not provided'}
+        `
+        
+        let whatsappURL = `https://wa.me/91${product.mobile}?text=${encodeURIComponent(msg)}`
+        
+        res.redirect(whatsappURL)
+    }catch(e){
+        console.log(e)
+        res.send('Error confirming purchase')
+    }
+    }
+})
+
+// Legacy route for backward compatibility
 app.get("/contact/:id",async(req,res)=>{
     if(req.cookies.id==undefined){res.redirect('/')}
     else{
-    let r =await products.findById(req.params.id)
-    let data=await schema.find({email:req.cookies.email})
-    let id=data[0]._id
-    let up=await schema.findByIdAndUpdate(id,
-        {
-        $push:{bought:r._id}
-        },
-        {new:true}
-        )
-    /*const mailoption =nodemailer.createTransport({
-        service:'gmail',
-        auth:{
-            user:"cartoonfans963@gmail.com",
-            pass: "nbpgtweumfjgwijj"
-        }
-    })
-    let maildata={
-        from:"dilkushpurohit963@gmail.com",
-        to:r.email,
-        subject:"hey you got an order",
-        html:`<h4> name of product :- ${r.name}<br>  
-        name of person :- ${req.cookies.name}<br>
-        email of person :- ${req.cookies.email}<br>
-        price of product:- ${r.price} <br> contact the person through email and keep visiting </h4>
+    try{
+        let r = await products.findById(req.params.id)
+        let data = await schema.find({email:req.cookies.email})
+        let id = data[0]._id
         
-        `
-    }
-    mailoption.sendMail(maildata,function(error,info){
-        if(error){
-            console.log(error)
-        }
-        else{
-            res.send('hey your request has been send to seller he will inform you through email so be alert and keep checking ')
-        }
-    })*/
-
-
-  let msg = `
+        // Add product to buyer's bought list
+        let up = await schema.findByIdAndUpdate(id,
+            {
+            $push:{bought:r._id}
+            },
+            {new:true}
+        )
+        
+        let msg = `
 Hello, I want to buy your product.
 Product: ${r.name}
-Price: ${r.price}
+Price: ₹${r.price}
 Buyer: ${req.cookies.name}
 Email: ${req.cookies.email}
-  `
-
-
-let whatsappURL = `https://wa.me/91${r.mobile}?text=${encodeURIComponent(msg)}`
-
-res.redirect(whatsappURL)
-}
+        `
+        
+        let whatsappURL = `https://wa.me/91${r.mobile}?text=${encodeURIComponent(msg)}`
+        
+        res.redirect(whatsappURL)
+    }catch(e){
+        console.log(e)
+        res.send('Error processing your request')
+    }
+    }
 })
 
 app.get("/writter/:id",async(req,res)=>{
@@ -404,15 +503,13 @@ res.redirect(whatsappURL)
 }
 })
 
-
-
-
-
-app.get("/writter/:id",(req,res)=>{
+// Route for registering as a writer
+app.get("/registerwriter/:id",(req,res)=>{
     if(req.cookies.id==undefined){res.redirect('/')}   
     res.render(__dirname +"/public/writter.ejs")
     res.cookie('cid',req.params.id)
 })
+
 app.post("/saveinfo",(req,res)=>{
      if(req.cookies.id==undefined){res.redirect('/')}
     else{
@@ -445,4 +542,8 @@ app.post("/saveinfo",(req,res)=>{
     }
 })
     }
+})
+
+app.listen(process.env.PORT||3000,()=>{
+    console.log("hey it is working new change")
 })

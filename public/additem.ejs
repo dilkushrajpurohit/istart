@@ -3,43 +3,291 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>add item</title>
- 
-</head>
-<style>
-       * {
-        padding: 0;
-        margin: 0;
-    }
+    <title>List Item for Sale - sCommerce</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-    form{
-        height: 50vh;
-        width: 50%;
-        border: 2px solid white;
-        display: flex;
-        flex-direction: column;
-    }
-    form input{
-        border: 2px solid white;
-        margin-top: 2vh;
-        background-color: transparent;
-        height: 3vh;
-        border-bottom: 8px;
-        color: white;
-    }
-</style>
-<body style="background-color: #000;">
-<div style="display: flex;justify-content: center;align-items: center;position: relative;top: 10vh;">
-    <form action="/addit" method="post" enctype="multipart/form-data" >
-        <input type="text" placeholder="enter name of product" name="pname">
-        <input type="number" placeholder="mobile no" name="mobile">
-        <input type="text" placeholder="give brief about the product when bought , why sell" name="desc">
-        <input type="number" placeholder="price at which want to sell" name="price">
-        <input type="email" placeholder="enter your email" name="email">
-        <input type="text" placeholder="college id number" name="id">
-        <input type="file" name="pfile" id="pfile">
-        <input type="submit" style="border: 2px solid red;background-color: red;width: 10vw;">
-    </form>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 30px 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .form-wrapper {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .form-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .form-header h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .form-header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .form-header i {
+            font-size: 40px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .form-body {
+            padding: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .label-subtitle {
+            font-size: 12px;
+            color: #999;
+            font-weight: 400;
+            display: block;
+            margin-top: 2px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="email"],
+        textarea,
+        input[type="file"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        input[type="email"]:focus,
+        textarea:focus,
+        input[type="file"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        input[type="file"] {
+            padding: 10px;
+        }
+
+        input[type="file"]::file-selector-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="file"]::file-selector-button:hover {
+            transform: scale(1.05);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .form-body {
+                padding: 25px;
+            }
+
+            .form-header {
+                padding: 25px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .form-header h1 {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-wrapper">
+            <div class="form-header">
+                <i class="fas fa-box"></i>
+                <h1>List Your Item</h1>
+                <p>Sell your products to college mates easily</p>
+            </div>
+
+            <div class="form-body">
+                <form action="/addit" method="POST" enctype="multipart/form-data">
+                    <!-- Product Name -->
+                    <div class="form-group">
+                        <label for="pname">
+                            <i class="fas fa-tag"></i> Product Name
+                            <span class="label-subtitle">What are you selling?</span>
+                        </label>
+                        <input type="text" id="pname" name="pname" placeholder="e.g., Used Textbook, Laptop, Bicycle" required>
+                    </div>
+
+                    <!-- Price and Mobile in Row -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="price">
+                                <i class="fas fa-rupee-sign"></i> Price (₹)
+                                <span class="label-subtitle">Selling price</span>
+                            </label>
+                            <input type="number" id="price" name="price" placeholder="Enter price" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mobile">
+                                <i class="fas fa-phone"></i> Mobile Number
+                                <span class="label-subtitle">Buyers will contact you</span>
+                            </label>
+                            <input type="number" id="mobile" name="mobile" placeholder="10-digit number" required>
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="form-group full">
+                        <label for="desc">
+                            <i class="fas fa-align-left"></i> Product Description
+                            <span class="label-subtitle">Why are you selling? Condition? Any damage?</span>
+                        </label>
+                        <textarea id="desc" name="desc" placeholder="Describe your product in detail..." required></textarea>
+                    </div>
+
+                    <!-- Email and ID in Row -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">
+                                <i class="fas fa-envelope"></i> Email
+                            </label>
+                            <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="id">
+                                <i class="fas fa-id-card"></i> College ID
+                            </label>
+                            <input type="text" id="id" name="id" placeholder="College ID number" required>
+                        </div>
+                    </div>
+
+                    <!-- Product Photo -->
+                    <div class="form-group full">
+                        <label for="pfile">
+                            <i class="fas fa-image"></i> Product Photo
+                            <span class="label-subtitle">Upload a clear photo of your item</span>
+                        </label>
+                        <input type="file" id="pfile" name="pfile" accept="image/*" required>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-check-circle"></i> List Item for Sale
+                    </button>
+
+                    <a href="/home" class="back-link">
+                        <i class="fas fa-arrow-left"></i> Back to Home
+                    </a>
+                </form>
+            </div>
+        </div>
     </div>
 </body>
 </html>

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile - S Commerce</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -30,6 +31,15 @@
             letter-spacing: 1px;
         }
 
+        .nav-link {
+            color: white !important;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-link:hover {
+            opacity: 0.8;
+        }
+
         /* Profile Section */
         .profile-container {
             max-width: 1200px;
@@ -37,54 +47,88 @@
             padding: 40px 20px;
         }
 
-        .profile-header {
+        /* Bio Data Section */
+        .bio-section {
             background: white;
-            padding: 30px;
-            border-radius: 10px;
+            padding: 40px;
+            border-radius: 15px;
             box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
             margin-bottom: 40px;
         }
 
-        .profile-header h2 {
-            color: #333;
-            margin-bottom: 25px;
-            font-weight: 600;
+        .bio-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
             border-bottom: 2px solid #667eea;
             padding-bottom: 15px;
         }
 
-        /* Table Styling */
-        .profile-table {
-            width: 100%;
-            border-collapse: collapse;
+        .bio-header h2 {
+            color: #333;
+            font-weight: 600;
+            margin: 0;
         }
 
-        .profile-table thead {
-            background-color: #667eea;
+        .edit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
+
+        .edit-btn:hover {
+            transform: translateY(-2px);
             color: white;
         }
 
-        .profile-table th {
-            padding: 15px;
-            text-align: left;
+        .bio-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .bio-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .bio-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #999;
             font-weight: 600;
-            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
         }
 
-        .profile-table td {
-            padding: 12px 15px;
-            border-bottom: 1px solid #e9ecef;
-            color: #555;
+        .bio-value {
+            font-size: 18px;
+            color: #333;
+            font-weight: 600;
         }
 
-        .profile-table tbody tr:hover {
-            background-color: #f1f3ff;
-            transition: background-color 0.3s ease;
+        .rating-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .star-rating {
+            color: #ffc107;
+            font-size: 18px;
         }
 
         /* Cards Section */
         .cards-section {
-            margin-top: 50px;
+            margin-bottom: 50px;
         }
 
         .section-title {
@@ -107,35 +151,38 @@
 
         .cards-container {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
             margin-bottom: 50px;
         }
 
         .product-card {
             background: white;
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.3s ease;
+            border: 1px solid #e9ecef;
         }
 
         .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
 
         .card-image {
             width: 100%;
-            height: 180px;
+            height: 200px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 14px;
+            font-size: 48px;
             text-align: center;
             padding: 20px;
+            position: relative;
+            overflow: hidden;
         }
 
         .card-body {
@@ -146,32 +193,50 @@
             font-size: 16px;
             font-weight: 600;
             color: #333;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .card-price {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 700;
             color: #667eea;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .card-description {
             font-size: 13px;
-            color: #888;
+            color: #666;
             margin-bottom: 15px;
-            line-height: 1.4;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
-        .card-date {
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             font-size: 12px;
             color: #999;
             margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e9ecef;
         }
 
         .card-actions {
             display: flex;
             gap: 10px;
+        }
+
+        .card-actions form {
+            flex: 1;
+            margin: 0;
+            padding: 0;
         }
 
         .btn-small {
@@ -181,8 +246,10 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
             font-weight: 500;
+            text-decoration: none;
+            text-align: center;
         }
 
         .btn-view {
@@ -193,6 +260,7 @@
         .btn-view:hover {
             background-color: #5568d3;
             color: white;
+            transform: scale(1.05);
         }
 
         .btn-delete {
@@ -202,18 +270,69 @@
 
         .btn-delete:hover {
             background-color: #f5c6cb;
+            transform: scale(1.05);
         }
 
         /* Empty State */
         .empty-state {
             text-align: center;
-            padding: 40px 20px;
+            padding: 60px 20px;
             color: #999;
+            background: white;
+            border-radius: 12px;
+            border: 2px dashed #ddd;
         }
 
         .empty-state i {
-            font-size: 48px;
+            font-size: 64px;
             margin-bottom: 15px;
+            color: #ddd;
+        }
+
+        .empty-state p {
+            font-size: 16px;
+            margin: 0;
+        }
+
+        /* Modal Styling */
+        .modal-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .modal-header .btn-close {
+            filter: brightness(0) invert(1);
+        }
+
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #5568d3 0%, #6a3f8f 100%);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .bio-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+
+            .bio-content {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -221,21 +340,20 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">S COMMERCE</a>
+            <a class="navbar-brand" href="/">📱 S COMMERCE</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/home">Home</a>
+                        <a class="nav-link" href="/home"><i class="fas fa-home"></i> Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/products">Products</a>
+                        <a class="nav-link" href="/profile"><i class="fas fa-user"></i> Profile</a>
                     </li>
-               
                     <li class="nav-item">
-                        <a class="nav-link" href="/logout">Logout</a>
+                        <a class="nav-link" href="/#"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </li>
                 </ul>
             </div>
@@ -244,93 +362,200 @@
 
     <!-- Profile Container -->
     <div class="profile-container">
-        <!-- Profile Information Section -->
-        <div class="profile-header">
-            <h2>Profile Information</h2>
-            <table class="profile-table">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                     
-                        <th>Email</th>
-                        <th>Mobile Number</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong><%= data.name %></strong></td>
-                       
-                        <td><%= data.email %></td>
-                        <td><%= data.mobile %></td>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- Bio Data Section -->
+        <div class="bio-section">
+            <div class="bio-header">
+                <h2><i class="fas fa-user-circle"></i> Bio Data</h2>
+                <button class="edit-btn" data-bs-toggle="modal" data-bs-target="#editProfileModal">
+                    <i class="fas fa-edit"></i> Edit Profile
+                </button>
+            </div>
+
+            <div class="bio-content">
+                <div class="bio-item">
+                    <div class="bio-label">Name</div>
+                    <div class="bio-value"><%= data.name %></div>
+                </div>
+
+                <div class="bio-item">
+                    <div class="bio-label">Email</div>
+                    <div class="bio-value"><%= data.email %></div>
+                </div>
+
+                <div class="bio-item">
+                    <div class="bio-label">Mobile</div>
+                    <div class="bio-value"><%= data.mobile || 'Not provided' %></div>
+                </div>
+
+                <div class="bio-item">
+                    <div class="bio-label">College</div>
+                    <div class="bio-value"><%= data.college || 'Not specified' %></div>
+                </div>
+
+                <div class="bio-item">
+                    <div class="bio-label">City</div>
+                    <div class="bio-value"><%= data.city || 'Not specified' %></div>
+                </div>
+
+                <div class="bio-item">
+                    <div class="bio-label">Rating</div>
+                    <div class="rating-section">
+                        <% for(let i = 0; i < 5; i++) { %>
+                            <i class="fas fa-star star-rating <% if(i < data.rating) { %>active<% } %>"></i>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px; padding-top: 30px; border-top: 1px solid #e9ecef;">
+                <div class="bio-label">Bio</div>
+                <div style="color: #555; font-size: 15px; line-height: 1.6; margin-top: 10px;">
+                    <%= data.bio || 'No bio added yet' %>
+                </div>
+            </div>
         </div>
 
         <!-- Sold Items Section -->
         <div class="cards-section">
-            <h3 class="section-title">Items Sold</h3>
-            <div class="cards-container">
-                <%if(data.sold.length==0){%>
-                <div class="empty-state">
-                    <i class="bi bi-box-seam"></i>
-                    <p>No items sold yet. Start selling to see them here!</p>
-                    </div>
-                <!-- Card 1 -->
-                <% } %>
-                <%data.sold.forEach(sold=>{ %>
-                <div class="product-card">
-                    <div class="card-image">
-                        <span>📚 <%=sold.name%></span>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title"><%=sold.name%></h5>
-                        <p class="card-price">₹<%=sold.price%></p>
-                        <p class="card-description"><%=sold.Desc%></p>
-                        <p class="card-date">Sold on: Feb 01, 2026</p>
-                        <div class="card-actions">
-                            <button class="btn-small btn-view">View</button>
-                            <button class="btn-small btn-delete">Delete</button>
+            <h3 class="section-title"><i class="fas fa-shopping-bag"></i> Items Sold</h3>
+            <% if(data.sold && data.sold.length > 0) { %>
+                <div class="cards-container">
+                    <% data.sold.forEach(sold => { %>
+                        <div class="product-card">
+                            <div class="card-image">
+                                <i class="fas fa-box"></i>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title"><%= sold.name %></h5>
+                                <p class="card-price">₹<%= sold.price %></p>
+                                <p class="card-description"><%= sold.Desc %></p>
+                                <div class="card-meta">
+                                    <span><i class="fas fa-phone"></i> <%= sold.mobile %></span>
+                                    <span><i class="fas fa-calendar"></i> <% const soldDate = new Date(); %>
+                                        <%= soldDate.toLocaleDateString() %>
+                                    </span>
+                                </div>
+                                <div class="card-actions">
+                                    <a href="#" class="btn-small btn-view">
+                                        <i class="fas fa-eye"></i> View
+                                    </a>
+                                    <form action="/deletesolid/<%= sold._id %>" method="POST" style="flex: 1;" onsubmit="return confirm('Are you sure you want to delete this item from your sold list?');">
+                                        <button type="submit" class="btn-small btn-delete" style="width: 100%; border: none;">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    <% }); %>
                 </div>
-
-
-         
-<%})%>
-               
-            </div>
+            <% } else { %>
+                <div class="empty-state">
+                    <i class="fas fa-inbox"></i>
+                    <p>No items sold yet. Start selling to see them here!</p>
+                </div>
+            <% } %>
         </div>
-        <% if(data.bought.length==0){%>
-        <div class="empty-state">
-            <i class="bi bi-cart-x"></i>
-            <p>No items bought yet. Start shopping to see them here!</p>    
-        </div>
-        <%}%>
+
         <!-- Bought Items Section -->
         <div class="cards-section">
-            <h3 class="section-title">Items Bought</h3>
-            <div class="cards-container">
-                <!-- Card 1 -->
-                 <% data.bought.forEach(bought=>{%>
-                <div class="product-card">
-                    <div class="card-image">
-                        <span>📖 <%=bought.name%></span>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title"><%=bought.name%></h5>
-                        <p class="card-price">₹<%=bought.price%></p>
-                        <p class="card-description"><%=bought.Desc%></p>
-                        <p class="card-date">Bought on: Feb 01, 2026</p>
-                        <div class="card-actions">
-                            <button class="btn-small btn-view">View</button>
-                            <button class="btn-small btn-delete">Delete</button>
+            <h3 class="section-title"><i class="fas fa-shopping-cart"></i> Items Bought</h3>
+            <% if(data.bought && data.bought.length > 0) { %>
+                <div class="cards-container">
+                    <% data.bought.forEach(bought => { %>
+                        <div class="product-card">
+                            <div class="card-image">
+                                <i class="fas fa-gift"></i>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title"><%= bought.name %></h5>
+                                <p class="card-price">₹<%= bought.price %></p>
+                                <p class="card-description"><%= bought.Desc %></p>
+                                <div class="card-meta">
+                                    <span><i class="fas fa-user"></i> <%= bought.nam %></span>
+                                    <span><i class="fas fa-calendar"></i> <% const boughtDate = new Date(); %>
+                                        <%= boughtDate.toLocaleDateString() %>
+                                    </span>
+                                </div>
+                                <div class="card-actions">
+                                    <a href="#" class="btn-small btn-view">
+                                        <i class="fas fa-eye"></i> View
+                                    </a>
+                                    <form action="/deletebought/<%= bought._id %>" method="POST" style="flex: 1;" onsubmit="return confirm('Are you sure you want to remove this item from your bought list?');">
+                                        <button type="submit" class="btn-small btn-delete" style="width: 100%; border: none;">
+                                            <i class="fas fa-trash"></i> Remove
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            <% } else { %>
+                <div class="empty-state">
+                    <i class="fas fa-shopping-bag"></i>
+                    <p>No items bought yet. Start shopping to see them here!</p>
+                </div>
+            <% } %>
+        </div>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editProfileLabel">
+                        <i class="fas fa-edit"></i> Edit Profile
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/updateprofile" method="POST">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" 
+                                value="<%= data.name %>" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" 
+                                value="<%= data.email %>" disabled>
+                            <small class="text-muted">Email cannot be changed</small>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="mobile" class="form-label">Mobile Number</label>
+                            <input type="tel" class="form-control" id="mobile" name="mobile" 
+                                value="<%= data.mobile || '' %>" placeholder="10-digit mobile number">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="college" class="form-label">College Name</label>
+                            <input type="text" class="form-control" id="college" name="college" 
+                                value="<%= data.college || '' %>" placeholder="Your college name">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="city" class="form-label">City</label>
+                            <input type="text" class="form-control" id="city" name="city" 
+                                value="<%= data.city || '' %>" placeholder="Your city">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="bio" class="form-label">Bio</label>
+                            <textarea class="form-control" id="bio" name="bio" rows="4" 
+                                placeholder="Tell us about yourself..."><%= data.bio || '' %></textarea>
                         </div>
                     </div>
-                </div>
-
-                
-               <% }) %>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Save Changes
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
