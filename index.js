@@ -89,8 +89,8 @@ res.cookie('password',req.body.password)
 res.cookie('email',req.body.email)
 const mailoption =nodemailer.createTransport({
     host: "smtp.gmail.com",       // your SMTP server
-    port: 587,                    // TLS port
-    secure: false, 
+    port: 465,                    // TLS port
+    secure: true, 
     auth:{
         user:"cartoonfans963@gmail.com",
         pass: "nbpgtweumfjgwijj"
