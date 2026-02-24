@@ -1,15 +1,19 @@
+// Route to serve Terms and Conditions PDF
+
 const express=require('express')
 const app=express()
 const cookieParser=require('cookie-parser')
 const nodemailer=require('nodemailer')
 const mongoose=require('mongoose')
+const formData = require('form-data');
+const Mailgun = require('mailgun.js');
 const schema=require("./schema.js")
 const cschema=require('./cschema.js')
 const products=require('./products.js')
 
 const otpStore = {}   
 let {Resend}=require('resend')
-const writter=require("./writter.js")
+
 mongoose.connect('mongodb+srv://divyanshuraj43435_db_user:9FvDgGOUROCOGdoh@smartindia.6uydl5q.mongodb.net/?retryWrites=true&w=majority&appName=smartindia').then(()=>{console.log('connected to db')})
 app.use(cookieParser());// iski wajah se baut latka mai
 app.set('view engine', 'ejs')
@@ -47,7 +51,7 @@ app.get('/dashboard/:id',async(req,res)=>{
         let array = db.product
         let arr1=db.writter
      let disc = []
-     let disc2 = []
+    
 
 // PRODUCTS
 for (let cid of db.product) {
@@ -56,15 +60,12 @@ for (let cid of db.product) {
 }
 
 // WRITERS
-for (let wid of db.writter) {
-    let wr = await writter.findById(wid)
-    if (wr) disc2.push(wr)
-}
+
 
 res.render(__dirname + "/public/dash.ejs", {
     items: db,
     prod: disc,
-    wri: disc2
+    
 })
 
      // res.send(disc)
@@ -73,9 +74,11 @@ res.render(__dirname + "/public/dash.ejs", {
         
     }
 )
+app.get('/terms', (req, res) => {
+    res.sendFile(__dirname + '/public/terms.pdf');
+});
 
-
-app.post("/register",(req,res)=>{
+app.post("/register",async(req,res)=>{
 let random =Math.floor(Math.random()*10000)
  otpStore[req.body.email] = {
     random,
@@ -87,39 +90,32 @@ let random =Math.floor(Math.random()*10000)
 res.cookie('name',req.body.name)
 res.cookie('password',req.body.password)
 res.cookie('email',req.body.email)
-const mailoption =nodemailer.createTransport({
-    host: "smtp.gmail.com",       // your SMTP server
-    port: 465,                    // TLS port
-    secure: true, 
-    auth:{
-        user:"cartoonfans963@gmail.com",
-        pass: "nbpgtweumfjgwijj"
-    }
-})
+
+const mailgun = new Mailgun(formData);
+const mg = mailgun.client({
+  username: 'api',
+  key: process.env.MAILGUN_API_KEY
+});
+
+
+  try {
+    await mg.messages.create('sandbox310d332d00414720b46f422158c9d3bd.mailgun.org', {
+      from: "OTP Verify <mailgun@yourdomain.com>",
+      to: req.body.email,
+      subject: "Verify your identity",
+      text: `Hey, your OTP is ${random}`
+    });
+
+    res.render(__dirname + "/public/otp.ejs");
+
+  } catch (error) {
+    console.log(error);
+    res.send("Error sending OTP");
+  }
+});
 
 
 
-
-
-
-
-
-
-
-let maildata={
-    from:"dilkushpurohit963@gmail.com",
-    to:req.body.email,
-    subject:"verify your identity",
-    text:`hey your otp is ${random}`
-}
-mailoption.sendMail(maildata,function(error,info){
-    if(error){
-        console.log(error)
-    }
-    else{
-        res.render(__dirname+"/public/otp.ejs")
-    }
-})
 
 /*const resend = new Resend('re_MjXW1UZa_BiiBXYiWgGe6rGwgrDGtpDdA');
 
@@ -133,7 +129,7 @@ res.render(__dirname+"/public/otp.ejs")
 
 */
 
-})
+
 app.get("/pro",(req,res)=>{
     res.render(__dirname+"/public/pro.ejs")
 })
@@ -163,11 +159,13 @@ app.post("/otpverify",async(req,res)=>{
     email:req.cookies.email,
     password:req.cookies.password
            })
-    try{let save =  await sc.save()
-        res.cookie('id',save._id)
-        res.redirect("/home")
 
-        }
+    try{
+        let save =  await sc.save()
+        res.cookie('id',save._id)
+        res.clearCookie('password') // Clear password from cookies after saving
+        res.redirect("/home")
+    }
     catch(e){
     console.log(e)
     }
@@ -457,7 +455,7 @@ Email: ${req.cookies.email}
     }
 })
 
-app.get("/writter/:id",async(req,res)=>{
+/*app.get("/writter/:id",async(req,res)=>{
     if(req.cookies.id==undefined){res.redirect('/')}
     else{
     let r =await writter.findById(req.params.id)
@@ -489,7 +487,7 @@ app.get("/writter/:id",async(req,res)=>{
     })*/
 
 
-  let msg = `
+ /* let msg = `
 Hello, I want to hire you to work for me.
 
 Buyer: ${req.cookies.name}
@@ -501,15 +499,15 @@ let whatsappURL = `https://wa.me/91${r.mobile}?text=${encodeURIComponent(msg)}`
 
 res.redirect(whatsappURL)
 }
-})
+})*/
 
 // Route for registering as a writer
-app.get("/registerwriter/:id",(req,res)=>{
+/*app.get("/registerwriter/:id",(req,res)=>{
     if(req.cookies.id==undefined){res.redirect('/')}   
     res.render(__dirname +"/public/writter.ejs")
     res.cookie('cid',req.params.id)
 })
-
+*/
 app.post("/saveinfo",(req,res)=>{
      if(req.cookies.id==undefined){res.redirect('/')}
     else{

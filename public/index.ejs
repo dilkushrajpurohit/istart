@@ -140,11 +140,15 @@ body {
     <div class="container">
         <!-- Login Form -->
         <div class="form-box" id="loginForm">
-            <form action="/login" method="post">
+            <form action="/login" method="post" id="loginFormElem">
             <h2>Login</h2>
-            <input type="email" placeholder="Email" required>
-            <input type="password" placeholder="Password" required>
-            <button type="submit">Login</button>
+            <input type="email" placeholder="Email" required name="email">
+            <input type="password" placeholder="Password" required name="password">
+            <div class="terms-area">
+                <input type="checkbox" id="loginTerms" onchange="toggleLoginBtn()">
+                <label for="loginTerms">I agree to the <a href="/terms" target="_blank">Terms and Conditions</a></label>
+            </div>
+            <button type="submit" id="loginBtn" disabled>Login</button>
             </form>
             <p>Don't have an account? 
                 <span onclick="showSignup()">Sign Up</span>
@@ -153,12 +157,16 @@ body {
 
         <!-- Signup Form -->
         <div class="form-box hidden" id="signupForm">
-            <form action="/register" method="post">
+            <form action="/register" method="post" id="signupFormElem">
             <h2>Sign Up</h2>
             <input type="text" placeholder="Name" required name="name">
             <input type="email" placeholder="Email" required name="email">
             <input type="password" placeholder="Password" required name="password">
-            <button type="submit">Sign Up</button>
+            <div class="terms-area">
+                <input type="checkbox" id="signupTerms" onchange="toggleSignupBtn()">
+                <label for="signupTerms">I agree to the <a href="/terms" target="_blank">Terms and Conditions</a></label>
+            </div>
+            <button type="submit" id="signupBtn" disabled>Sign Up</button>
             </form>
             <p>Already have an account? 
                 <span onclick="showLogin()">Login</span>
@@ -168,15 +176,30 @@ body {
 
     <script>
         function showLogin() {
-    document.getElementById("loginForm").classList.remove("hidden");
-    document.getElementById("signupForm").classList.add("hidden");
-}
+            document.getElementById("loginForm").classList.remove("hidden");
+            document.getElementById("signupForm").classList.add("hidden");
+        }
 
-function showSignup() {
-    document.getElementById("signupForm").classList.remove("hidden");
-    document.getElementById("loginForm").classList.add("hidden");
-}
+        function showSignup() {
+            document.getElementById("signupForm").classList.remove("hidden");
+            document.getElementById("loginForm").classList.add("hidden");
+        }
 
+        function toggleSignupBtn() {
+            document.getElementById('signupBtn').disabled = !document.getElementById('signupTerms').checked;
+        }
+        function toggleLoginBtn() {
+            document.getElementById('loginBtn').disabled = !document.getElementById('loginTerms').checked;
+        }
     </script>
+    <style>
+    .terms-area {
+        margin: 10px 0 10px 0;
+        font-size: 0.95em;
+    }
+    .terms-area label {
+        margin-left: 5px;
+    }
+    </style>
 </body>
 </html>

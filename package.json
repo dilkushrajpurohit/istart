@@ -17,11 +17,15 @@
     "cloudinary": "^2.8.0",
     "cookie-parser": "^1.4.7",
     "ejs": "^3.1.10",
-    "express": "^5.1.0",
+    "express": "^5.2.1",
     "express-fileupload": "^1.5.2",
+    "form-data": "^4.0.5",
+    "mailgun": "^0.5.0",
+    "mailgun.js": "^12.7.0",
     "mongoose": "^8.19.3",
     "nodemailer": "^7.0.6",
     "pandas": "^0.0.3",
-    "resend": "^6.4.2"
+    "resend": "^6.4.2",
+    "sendgrid": "^5.2.3"
   }
 }
